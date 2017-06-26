@@ -67,34 +67,12 @@
 #define KEY_R3_GPIO_Port GPIOA
 #define KEY_R4_Pin GPIO_PIN_7
 #define KEY_R4_GPIO_Port GPIOA
-#define RST_OUT_Pin GPIO_PIN_2
+#define BUS_REQ_Pin GPIO_PIN_12
+#define BUS_REQ_GPIO_Port GPIOB
+#define RST_OUT_Pin GPIO_PIN_13
 #define RST_OUT_GPIO_Port GPIOB
-#define BUS_D2_Pin GPIO_PIN_10
-#define BUS_D2_GPIO_Port GPIOB
-#define BUS_D3_Pin GPIO_PIN_11
-#define BUS_D3_GPIO_Port GPIOB
-#define BUS_D4_Pin GPIO_PIN_12
-#define BUS_D4_GPIO_Port GPIOB
-#define BUS_D5_Pin GPIO_PIN_13
-#define BUS_D5_GPIO_Port GPIOB
-#define BUS_D6_Pin GPIO_PIN_14
-#define BUS_D6_GPIO_Port GPIOB
-#define BUS_D7_Pin GPIO_PIN_15
-#define BUS_D7_GPIO_Port GPIOB
 #define KEY_RST_Pin GPIO_PIN_15
 #define KEY_RST_GPIO_Port GPIOA
-#define BUS_REQ_Pin GPIO_PIN_4
-#define BUS_REQ_GPIO_Port GPIOB
-#define BUS_RS_Pin GPIO_PIN_5
-#define BUS_RS_GPIO_Port GPIOB
-#define BUS_RW_Pin GPIO_PIN_6
-#define BUS_RW_GPIO_Port GPIOB
-#define BUS_EN_Pin GPIO_PIN_7
-#define BUS_EN_GPIO_Port GPIOB
-#define BUS_D0_Pin GPIO_PIN_8
-#define BUS_D0_GPIO_Port GPIOB
-#define BUS_D1_Pin GPIO_PIN_9
-#define BUS_D1_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

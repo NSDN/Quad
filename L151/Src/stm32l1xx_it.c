@@ -199,22 +199,6 @@ void USB_LP_IRQHandler(void)
   /* USER CODE END USB_LP_IRQn 1 */
 }
 
-/**
-* @brief This function handles EXTI line[15:10] interrupts.
-*/
-void EXTI15_10_IRQHandler(void)
-{
-  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
-
-  /* USER CODE END EXTI15_10_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_15);
-  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
-	HAL_GPIO_WritePin(RST_OUT_GPIO_Port, RST_OUT_Pin, GPIO_PIN_SET);
-	HAL_Delay(500);
-	HAL_GPIO_WritePin(RST_OUT_GPIO_Port, RST_OUT_Pin, GPIO_PIN_RESET);
-  /* USER CODE END EXTI15_10_IRQn 1 */
-}
-
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */

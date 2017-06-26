@@ -100,6 +100,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if (HAL_GPIO_ReadPin(KEY_RST_GPIO_Port, KEY_RST_Pin) == GPIO_PIN_RESET) {
+		  while (HAL_GPIO_ReadPin(KEY_RST_GPIO_Port, KEY_RST_Pin) == GPIO_PIN_RESET);
+		  HAL_GPIO_WritePin(RST_OUT_GPIO_Port, RST_OUT_Pin, GPIO_PIN_SET);
+		  HAL_Delay(500);
+		  HAL_GPIO_WritePin(RST_OUT_GPIO_Port, RST_OUT_Pin, GPIO_PIN_RESET);
+	  }
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -212,23 +218,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : RST_OUT_Pin */
-  GPIO_InitStruct.Pin = RST_OUT_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  HAL_GPIO_Init(RST_OUT_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : BUS_D2_Pin BUS_D3_Pin BUS_D4_Pin BUS_D5_Pin 
-                           BUS_D6_Pin BUS_D7_Pin BUS_REQ_Pin BUS_RS_Pin 
-                           BUS_RW_Pin BUS_EN_Pin BUS_D0_Pin BUS_D1_Pin */
-  GPIO_InitStruct.Pin = BUS_D2_Pin|BUS_D3_Pin|BUS_D4_Pin|BUS_D5_Pin 
-                          |BUS_D6_Pin|BUS_D7_Pin|BUS_REQ_Pin|BUS_RS_Pin 
-                          |BUS_RW_Pin|BUS_EN_Pin|BUS_D0_Pin|BUS_D1_Pin;
+  /*Configure GPIO pin : BUS_REQ_Pin */
+  GPIO_InitStruct.Pin = BUS_REQ_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(BUS_REQ_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : RST_OUT_Pin */
+  GPIO_InitStruct.Pin = RST_OUT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(RST_OUT_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PA8 */
   GPIO_InitStruct.Pin = GPIO_PIN_8;
@@ -240,21 +242,15 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : KEY_RST_Pin */
   GPIO_InitStruct.Pin = KEY_RST_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(KEY_RST_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(RST_OUT_GPIO_Port, RST_OUT_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(BUS_REQ_GPIO_Port, BUS_REQ_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, BUS_D2_Pin|BUS_D3_Pin|BUS_D4_Pin|BUS_D5_Pin 
-                          |BUS_D6_Pin|BUS_D7_Pin|BUS_REQ_Pin|BUS_RS_Pin 
-                          |BUS_RW_Pin|BUS_EN_Pin|BUS_D0_Pin|BUS_D1_Pin, GPIO_PIN_SET);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+  HAL_GPIO_WritePin(RST_OUT_GPIO_Port, RST_OUT_Pin, GPIO_PIN_RESET);
 
 }
 
