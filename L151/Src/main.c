@@ -103,7 +103,7 @@ int main(void)
 	  if (HAL_GPIO_ReadPin(KEY_RST_GPIO_Port, KEY_RST_Pin) == GPIO_PIN_RESET) {
 		  while (HAL_GPIO_ReadPin(KEY_RST_GPIO_Port, KEY_RST_Pin) == GPIO_PIN_RESET);
 		  HAL_GPIO_WritePin(RST_OUT_GPIO_Port, RST_OUT_Pin, GPIO_PIN_SET);
-		  HAL_Delay(500);
+		  HAL_Delay(1000);
 		  HAL_GPIO_WritePin(RST_OUT_GPIO_Port, RST_OUT_Pin, GPIO_PIN_RESET);
 	  }
   /* USER CODE END WHILE */
@@ -134,7 +134,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
-  RCC_OscInitStruct.PLL.PLLDIV = RCC_PLL_DIV3;
+  RCC_OscInitStruct.PLL.PLLDIV = RCC_PLL_DIV4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -154,11 +154,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
-  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_1);
-
-    /**Enables the Clock Security System 
-    */
-  HAL_RCC_EnableCSS();
+  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_PLLCLK, RCC_MCODIV_2);
 
     /**Configure the Systick interrupt time 
     */
@@ -235,8 +231,8 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : PA8 */
   GPIO_InitStruct.Pin = GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
